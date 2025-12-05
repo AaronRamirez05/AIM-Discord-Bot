@@ -112,16 +112,30 @@ app.listen(PORT, () => {
     console.log(`[INFO] HTTP server listening on port ${PORT}`);
 });
 
-// Login to Discord
+// Login to Discord with timeout
 console.log('[INFO] Attempting to login to Discord...');
 console.log('[INFO] Token present:', config.token ? 'Yes (length: ' + config.token.length + ')' : 'No');
+console.log('[INFO] Token starts with:', config.token ? config.token.substring(0, 10) + '...' : 'N/A');
+
+// Set a timeout to catch hanging logins
+const loginTimeout = setTimeout(() => {
+    console.error('[ERROR] Login timeout after 30 seconds - WebSocket connection failed');
+    console.error('[ERROR] This usually means:');
+    console.error('[ERROR] 1. Token is invalid/expired');
+    console.error('[ERROR] 2. Network/firewall blocking WebSocket');
+    console.error('[ERROR] 3. Discord API issues');
+    process.exit(1);
+}, 30000);
 
 client.login(config.token)
     .then(() => {
-        console.log('[INFO] Login successful!');
+        clearTimeout(loginTimeout);
+        console.log('[INFO] Login promise resolved!');
     })
     .catch(error => {
+        clearTimeout(loginTimeout);
         console.error('[ERROR] Failed to login to Discord:', error.message);
         console.error('[ERROR] Error code:', error.code);
+        console.error('[ERROR] Full error:', error);
         process.exit(1);
     });
