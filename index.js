@@ -113,4 +113,15 @@ app.listen(PORT, () => {
 });
 
 // Login to Discord
-client.login(config.token);
+console.log('[INFO] Attempting to login to Discord...');
+console.log('[INFO] Token present:', config.token ? 'Yes (length: ' + config.token.length + ')' : 'No');
+
+client.login(config.token)
+    .then(() => {
+        console.log('[INFO] Login successful!');
+    })
+    .catch(error => {
+        console.error('[ERROR] Failed to login to Discord:', error.message);
+        console.error('[ERROR] Error code:', error.code);
+        process.exit(1);
+    });
