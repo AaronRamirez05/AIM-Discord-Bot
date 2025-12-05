@@ -1,0 +1,28 @@
+{
+  "name": "aim-discord-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot that reads and reports data from Excel sheets",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "deploy": "node deploy-commands.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronRamirez05/AIM-Discord-Bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AaronRamirez05/AIM-Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/AaronRamirez05/AIM-Discord-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.25.0",
+    "dotenv": "^17.2.3",
+    "xlsx": "^0.18.5"
+  }
+}

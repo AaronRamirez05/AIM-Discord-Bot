@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:docs.google.com)",
+      "WebFetch(domain:doc-08-7g-sheets.googleusercontent.com)",
+      "Bash(node -e:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
