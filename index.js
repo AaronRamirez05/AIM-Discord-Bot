@@ -91,5 +91,26 @@ process.on('unhandledRejection', error => {
     console.error('[ERROR] Unhandled promise rejection:', error);
 });
 
+// Create HTTP server for Render health checks
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.send('Discord bot is running!');
+});
+
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        uptime: process.uptime(),
+        bot: client.user ? client.user.tag : 'Not logged in'
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`[INFO] HTTP server listening on port ${PORT}`);
+});
+
 // Login to Discord
 client.login(config.token);

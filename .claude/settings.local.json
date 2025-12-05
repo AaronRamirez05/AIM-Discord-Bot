@@ -6,7 +6,10 @@
       "WebFetch(domain:docs.google.com)",
       "WebFetch(domain:doc-08-7g-sheets.googleusercontent.com)",
       "Bash(node -e:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd Google Sheets support and powerlifting rankings features\n\n- Integrated Google Sheets API for live data fetching\n- Added /announce-rankings command with @everyone mention\n- Updated all commands to support async Google Sheets data loading\n- Added 5-minute caching to reduce API requests\n- Created ranked leaderboard with medals for top 3\n- Updated excelReader.js to handle both Google Sheets and local Excel files\n- Modified all command files (data, search, sheets, stats) for async operations\n- Updated README with new features and Google Sheets setup\n- Added .env.example with Google Sheets configuration\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
