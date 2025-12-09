@@ -36,10 +36,13 @@ module.exports = {
             const totalDots = sortedData.reduce((sum, lifter) => sum + (parseFloat(lifter['Total Dots']) || 0), 0);
             const avgDots = totalDots / totalLifters;
 
-            // Find highest individual lifts
-            const maxSquat = Math.max(...sortedData.map(l => parseFloat(l['Squat - Single Max']) || 0));
-            const maxBench = Math.max(...sortedData.map(l => parseFloat(l['Bench - Single Max']) || 0));
-            const maxDeadlift = Math.max(...sortedData.map(l => parseFloat(l['Deadlift - Single Max']) || 0));
+            // Find highest individual lifts (weight x reps)
+            const maxSquatWeight = Math.max(...sortedData.map(l => parseFloat(l['Squat - Weight']) || 0));
+            const maxSquatReps = sortedData.find(l => parseFloat(l['Squat - Weight']) === maxSquatWeight)?.['Squat - Reps'] || 0;
+            const maxBenchWeight = Math.max(...sortedData.map(l => parseFloat(l['Bench - Weight']) || 0));
+            const maxBenchReps = sortedData.find(l => parseFloat(l['Bench - Weight']) === maxBenchWeight)?.['Bench - Reps'] || 0;
+            const maxDeadliftWeight = Math.max(...sortedData.map(l => parseFloat(l['Deadlift - Weight']) || 0));
+            const maxDeadliftReps = sortedData.find(l => parseFloat(l['Deadlift - Weight']) === maxDeadliftWeight)?.['Deadlift - Reps'] || 0;
 
             // Create announcement message
             const announcementEmbed = new EmbedBuilder()
@@ -50,9 +53,9 @@ module.exports = {
                     { name: '👥 Total Participants', value: `${totalLifters}`, inline: true },
                     { name: '📊 Average Total Dots', value: `${avgDots.toFixed(2)}`, inline: true },
                     { name: '\u200B', value: '\u200B', inline: true },
-                    { name: '🏋️ Highest Squat', value: `${maxSquat} lbs`, inline: true },
-                    { name: '💪 Highest Bench', value: `${maxBench} lbs`, inline: true },
-                    { name: '🔥 Highest Deadlift', value: `${maxDeadlift} lbs`, inline: true }
+                    { name: '🏋️ Highest Squat', value: `${maxSquatWeight} lbs x ${maxSquatReps} reps`, inline: true },
+                    { name: '💪 Highest Bench', value: `${maxBenchWeight} lbs x ${maxBenchReps} reps`, inline: true },
+                    { name: '🔥 Highest Deadlift', value: `${maxDeadliftWeight} lbs x ${maxDeadliftReps} reps`, inline: true }
                 )
                 .setTimestamp();
 
@@ -71,14 +74,17 @@ module.exports = {
                 const name = lifter['Lifter'] || 'Unknown';
                 const bodyweight = lifter['Bodyweight(Pounds)'] || 'N/A';
                 const totalDots = lifter['Total Dots'] || '0';
-                const squatMax = lifter['Squat - Single Max'] || '0';
-                const benchMax = lifter['Bench - Single Max'] || '0';
-                const deadliftMax = lifter['Deadlift - Single Max'] || '0';
+                const squatWeight = lifter['Squat - Weight'] || '0';
+                const squatReps = lifter['Squat - Reps'] || '0';
+                const benchWeight = lifter['Bench - Weight'] || '0';
+                const benchReps = lifter['Bench - Reps'] || '0';
+                const deadliftWeight = lifter['Deadlift - Weight'] || '0';
+                const deadliftReps = lifter['Deadlift - Reps'] || '0';
 
                 const lifterInfo = [
                     `**Total Dots:** ${totalDots}`,
                     `**Bodyweight:** ${bodyweight} lbs`,
-                    `**S/B/D:** ${squatMax}/${benchMax}/${deadliftMax} lbs`
+                    `**S/B/D:** ${squatWeight}x${squatReps} / ${benchWeight}x${benchReps} / ${deadliftWeight}x${deadliftReps}`
                 ].join('\n');
 
                 rankingsEmbed.addFields({
@@ -127,10 +133,13 @@ module.exports = {
             const totalDots = sortedData.reduce((sum, lifter) => sum + (parseFloat(lifter['Total Dots']) || 0), 0);
             const avgDots = totalDots / totalLifters;
 
-            // Find highest individual lifts
-            const maxSquat = Math.max(...sortedData.map(l => parseFloat(l['Squat - Single Max']) || 0));
-            const maxBench = Math.max(...sortedData.map(l => parseFloat(l['Bench - Single Max']) || 0));
-            const maxDeadlift = Math.max(...sortedData.map(l => parseFloat(l['Deadlift - Single Max']) || 0));
+            // Find highest individual lifts (weight x reps)
+            const maxSquatWeight = Math.max(...sortedData.map(l => parseFloat(l['Squat - Weight']) || 0));
+            const maxSquatReps = sortedData.find(l => parseFloat(l['Squat - Weight']) === maxSquatWeight)?.['Squat - Reps'] || 0;
+            const maxBenchWeight = Math.max(...sortedData.map(l => parseFloat(l['Bench - Weight']) || 0));
+            const maxBenchReps = sortedData.find(l => parseFloat(l['Bench - Weight']) === maxBenchWeight)?.['Bench - Reps'] || 0;
+            const maxDeadliftWeight = Math.max(...sortedData.map(l => parseFloat(l['Deadlift - Weight']) || 0));
+            const maxDeadliftReps = sortedData.find(l => parseFloat(l['Deadlift - Weight']) === maxDeadliftWeight)?.['Deadlift - Reps'] || 0;
 
             // Create announcement message
             const announcementEmbed = new EmbedBuilder()
@@ -141,9 +150,9 @@ module.exports = {
                     { name: '👥 Total Participants', value: `${totalLifters}`, inline: true },
                     { name: '📊 Average Total Dots', value: `${avgDots.toFixed(2)}`, inline: true },
                     { name: '\u200B', value: '\u200B', inline: true },
-                    { name: '🏋️ Highest Squat', value: `${maxSquat} lbs`, inline: true },
-                    { name: '💪 Highest Bench', value: `${maxBench} lbs`, inline: true },
-                    { name: '🔥 Highest Deadlift', value: `${maxDeadlift} lbs`, inline: true }
+                    { name: '🏋️ Highest Squat', value: `${maxSquatWeight} lbs x ${maxSquatReps} reps`, inline: true },
+                    { name: '💪 Highest Bench', value: `${maxBenchWeight} lbs x ${maxBenchReps} reps`, inline: true },
+                    { name: '🔥 Highest Deadlift', value: `${maxDeadliftWeight} lbs x ${maxDeadliftReps} reps`, inline: true }
                 )
                 .setTimestamp();
 
@@ -162,14 +171,17 @@ module.exports = {
                 const name = lifter['Lifter'] || 'Unknown';
                 const bodyweight = lifter['Bodyweight(Pounds)'] || 'N/A';
                 const totalDots = lifter['Total Dots'] || '0';
-                const squatMax = lifter['Squat - Single Max'] || '0';
-                const benchMax = lifter['Bench - Single Max'] || '0';
-                const deadliftMax = lifter['Deadlift - Single Max'] || '0';
+                const squatWeight = lifter['Squat - Weight'] || '0';
+                const squatReps = lifter['Squat - Reps'] || '0';
+                const benchWeight = lifter['Bench - Weight'] || '0';
+                const benchReps = lifter['Bench - Reps'] || '0';
+                const deadliftWeight = lifter['Deadlift - Weight'] || '0';
+                const deadliftReps = lifter['Deadlift - Reps'] || '0';
 
                 const lifterInfo = [
                     `**Total Dots:** ${totalDots}`,
                     `**Bodyweight:** ${bodyweight} lbs`,
-                    `**S/B/D:** ${squatMax}/${benchMax}/${deadliftMax} lbs`
+                    `**S/B/D:** ${squatWeight}x${squatReps} / ${benchWeight}x${benchReps} / ${deadliftWeight}x${deadliftReps}`
                 ].join('\n');
 
                 rankingsEmbed.addFields({
